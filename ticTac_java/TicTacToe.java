@@ -1,3 +1,5 @@
+import java.lang.Thread.State;
+
 public class TicTacToe {
     public static void main(String[] args){
         
@@ -9,8 +11,12 @@ public class TicTacToe {
             {' ', '|', ' ', '|', ' '},
             {'-', '+', '-', '+', '-'},
             {' ', '|', ' ', '|', ' '}};
+            
+            printGameBoard(gameboard);
+    }
         
         // prints out gameboard (using shorthand)
+        public static void printGameBoard(char[][] gameboard) {
         for(char[] row : gameboard){
             for(char c : row){
                 System.out.print(c);
