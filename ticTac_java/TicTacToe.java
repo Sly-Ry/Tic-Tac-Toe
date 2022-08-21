@@ -1,4 +1,6 @@
 import java.lang.Thread.State;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,22 +18,23 @@ public class TicTacToe {
             
         printhashtag(hashtag);
 
-        // get input from user
-        Scanner scan = new Scanner(System.in);
+        while(true){
+            // get input from user
+            Scanner scan = new Scanner(System.in);
+            // prompt for user input
+            System.out.println("Enter Number (1-9) for placement:");
+            
+            // user output
+            int player = scan.nextInt();
+            exesOhs(hashtag, player, "player");
+            
+            // cpu randomized output
+            Random bot = new Random();
+            int cpu = bot.nextInt(9) + 1;
+            exesOhs(hashtag, cpu, "cpu");
 
-        // prompt for user input
-        System.out.println("Enter Number (1-9) for placement:");
-        
-        // user output
-        int player = scan.nextInt();
-        exesOhs(hashtag, player, "player");
-        
-        // cpu randomized output
-        Random bot = new Random();
-        int cpu = bot.nextInt(9) + 1;
-        exesOhs(hashtag, cpu, "cpu");
-
-        printhashtag(hashtag);
+            printhashtag(hashtag);
+        }
     }
         
     // prints out hashtag (using shorthand)
@@ -87,5 +90,21 @@ public class TicTacToe {
             default:
                 break;
         }
+    }
+
+    public static String winner() {
+        List topRow = Arrays.asList(1, 2, 3);
+        List midRow = Arrays.asList(4, 5, 6);
+        List bottomRow = Arrays.asList(7, 8, 9);
+
+        List leftCol = Arrays.asList(1, 4, 7);
+        List midCol = Arrays.asList(2, 5, 8);
+        List rightCol = Arrays.asList(3, 6, 9);
+
+        List leftDiag = Arrays.asList(1, 5, 9);
+        List rightDiag = Arrays.asList(3, 5, 7);
+
+
+        return "";
     }
 }
