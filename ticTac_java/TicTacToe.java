@@ -23,7 +23,8 @@ public class TicTacToe {
             {' ', '|', ' ', '|', ' '},
             {'-', '+', '-', '+', '-'},
             {' ', '|', ' ', '|', ' '}};
-            
+        
+        // prints gameboard using shorthand
         printhashtag(hashtag);
 
         while(true){
@@ -34,20 +35,37 @@ public class TicTacToe {
             
             // user output
             int player = scan.nextInt();
+            while(playerPositions.contains(player) || cpuPositions.contains(player)){
+                System.out.println("This spot is already taken.");
+                player = scan.nextInt();
+            }
+
             exesOhs(hashtag, player, "player");
+
+            String result = winner();
+            if(result.length() > 0){
+                System.out.println(result);
+                break;
+            }
             
             // cpu randomized output
             Random bot = new Random();
             int cpu = bot.nextInt(9) + 1;
             exesOhs(hashtag, cpu, "cpu");
+            while(playerPositions.contains(cpu) || cpuPositions.contains(cpu)){
+                cpu = scan.nextInt(9) + 1;
+            }
 
             printhashtag(hashtag);
 
-            winner();
+            String result = winner();
+            if(result.length() > 0){
+                System.out.println(result);
+                break;
+            }
         }
     }
         
-    // prints out hashtag (using shorthand)
     public static void printhashtag(char[][] hashtag) {
         for(char[] row : hashtag){
             for(char c : row){
@@ -64,8 +82,10 @@ public class TicTacToe {
 
         if(user.equals("player")) {
             symbol = 'X';
+            playerPositions.add(player);
         } else if(user.equals("cpu")) {
             symbol = 'O';
+            cpuPositions.add(player);
         }
 
         // switch playerition based on user input
