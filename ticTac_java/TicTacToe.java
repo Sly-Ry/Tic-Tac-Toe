@@ -1,10 +1,18 @@
 import java.lang.Thread.State;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import javafx.scene.control.CheckBox;
+
 public class TicTacToe {
+
+    // "static" = we don't have to make an object every time
+    static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
+    static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
+
     public static void main(String[] args){
         
         // 2d array
@@ -34,6 +42,8 @@ public class TicTacToe {
             exesOhs(hashtag, cpu, "cpu");
 
             printhashtag(hashtag);
+
+            winner();
         }
     }
         
@@ -104,6 +114,25 @@ public class TicTacToe {
         List leftDiag = Arrays.asList(1, 5, 9);
         List rightDiag = Arrays.asList(3, 5, 7);
 
+        List<List> win = new ArrayList<List>();
+        win.add(topRow);
+        win.add(midRow);
+        win.add(bottomRow);
+        win.add(leftCol);
+        win.add(midCol);
+        win.add(rightCol);
+        win.add(leftDiag);
+        win.add(rightDiag);
+
+        for(List l : win) {
+            if(playerPositions.contains(l)) {
+                return "Winner!";
+            } else if(cpuPositions.contains(l)) {
+                return "CPU wins!";
+            } else if(playerPositions.size() + cpuPositions.size() == 9) {
+                return "DRAW";
+            }
+        }
 
         return "";
     }
