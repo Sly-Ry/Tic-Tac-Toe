@@ -49,7 +49,49 @@ h1, h3 {
 }
 
 .container > div {
-    display: flex;justify-content: center;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
+.city-time,
+.temp,
+.weather {
+    margin: 0 1em;
+}
+
+.city-time h1 {
+    margin: 0;
+    margin-bottom: 0.2em;
+    font-size: 3em;
+}
+
+.temp {
+    font-size: 5em;
+    margin: 0;
+}
+
+.weather img {
+    display: block;
+    margin: 0.5em 0;
+}
+
+.panel {
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: 
+        rgba(73, 73, 73, 0.192);
+    box-shadow: 
+        0 8px 32px 0 
+        rgba(0, 0, 0, 0.3);
+    backdrop-filter: blue(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 
+        1px solid 
+        rgba(255, 255, 255, 0.151);
+    z-index: 1;
+    padding: 3em 2em;
+}
