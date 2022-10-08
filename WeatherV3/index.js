@@ -15,6 +15,12 @@ const btn = document.querySelector(".submit");
 const cities = document.querySelectorAll('.city');
 
 // Default loading city
-let cityInput = "Tokyo";
+let cityInput = "Austin";
 
 // Click event per city
+cities.forEach((city, (e) => {
+    // Changes default to clicked
+    cityInput = e.target.innerHTML;
+
+    // Fetch and display weather using the Weather API
+}));
