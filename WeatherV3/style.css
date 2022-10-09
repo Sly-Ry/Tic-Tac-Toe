@@ -2,6 +2,10 @@ body {
     margin: 0;
     font-family: 'Rubik', sans-serif;
     background: #111;
+    background-image: url('https://source.unsplash.com/1600x900/?landscape');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 * {
@@ -14,10 +18,7 @@ h1, h3 {
 
 .weather {
     min-height: 100vh;
-    background-image: url('https://source.unsplash.com/1600x900/?landscape');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    
     color: #fff;
     position: relative;
     transition: 500ms;
@@ -184,6 +185,10 @@ h1, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.loading {
+    font-size: 50px;
 }
 
 @media screen and (max-width: 800px) {

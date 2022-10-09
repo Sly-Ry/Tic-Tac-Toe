@@ -28,7 +28,7 @@ let fetchWeather = {
         document.querySelector(".humidity").innerText = humidity +"%"
         document.querySelector(".wind").innerText = speed + " km/h"
         
-        // document.querySelector(".weather").classList.remove("loading");
+        document.querySelector(".loading").classList.remove("loading");
 
         document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?'" + name + "')";
     },
@@ -49,12 +49,34 @@ document.querySelector(".search-bar").addEventListener('keyup', function(event) 
     }
 })
 
+const time = document.querySelector(".time");
 
+// gets current Date
+function currentDate(day, month, year) {
+    const weekday = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ];
 
+    return weekday[new Date(`${day}/${month}/${year}`).getDate()];
+}
 
+let timeOfDay = "day";
 
+// const code = data.current.condition.code;
 
+// if(!data.current.is_day) {
+//     timeOfDay = "night"
+// }
 
+// if (code == 1000) {
+    
+//}
 
 
 
