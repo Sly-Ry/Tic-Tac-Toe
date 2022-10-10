@@ -1,10 +1,30 @@
 let fetchWeather = {
     "apiKey": "2632ab542fff737012a28d74931b6af5",
-    getWeather: function(city){
+    getLocation: function(city) {
+        fetch (
+            "http://api.openweathermap.org/geo/1.0/direct?q="
+            + {city}
+            + "&limit="
+            + 1
+            + "&appid=" 
+            + apiKey
+        )
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            const lat = data.lat
+            const lon = data.lon
+            getWeather(lat, lon);
+        })
+    },
+
+    getWeather: function(lat, lon){
         fetch(
-            "https://api.openweathermap.org/data/2.5/weather?q=" 
-            + city 
-            + "&units=metric&appid=" 
+            "https://api.openweathermap.org/data/3.0/onecall?lat=" 
+            + {lat} 
+            + "&lon=" 
+            + {lon} 
+            + "&appid=" 
             + this.apiKey
         )
         .then((response) => response.json())
