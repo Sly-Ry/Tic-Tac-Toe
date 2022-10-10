@@ -1,6 +1,7 @@
 let fetchWeather = {
     "apiKey": "2632ab542fff737012a28d74931b6af5",
     getWeather: function(city){
+        console.log(city)
         fetch(
             "https://api.openweathermap.org/data/2.5/weather?q=" 
             + city 
@@ -18,6 +19,7 @@ let fetchWeather = {
         const { temp, humidity } = data.main;
         const { speed } = data.wind;
         const { all } = data.clouds;
+        const {lon, lat} = data.coord
 
         document.querySelector(".name").innerText = name
         document.querySelector(".icon").src = 
@@ -30,7 +32,7 @@ let fetchWeather = {
         
         document.querySelector(".loading").classList.remove("loading");
 
-        document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?'" + name + "')";
+        // document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?'" + name + "')";
     },
     search: function() {
         this.getWeather(document.querySelector(".search-bar").value);
@@ -43,11 +45,28 @@ document.querySelector(".search button").addEventListener("click", function() {
 });
 
 // "Enter" Search
-document.querySelector(".search-bar").addEventListener('keyup', function(event) {
-    if (event.key == "Enter") {
+document.querySelector(".search-bar").addEventListener('keyup', function(e) {
+    if (e.key == "Enter") {
         fetchWeather.search();
     }
-})
+});
+
+const cities = document.querySelectorAll('.city');
+
+// Click event per city
+cities.forEach((city) =>{
+    city.addEventListener("click", (e) => {
+        // Changes default to clicked
+        c = e.target.innerHTML;
+
+        // Fetch and display weather using the Weather API
+        fetchWeather.getWeather(c);
+
+        // fancy styling: Fade out
+        app.style.opacity = '0';
+    });
+});
+
 
 const time = document.querySelector(".time");
 
