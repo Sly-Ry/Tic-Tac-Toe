@@ -1,7 +1,44 @@
+const app = document.querySelector('.weather');
+const dateData = document.querySelector('.date');
+const time = document.querySelector('.time');
+const cities = document.querySelectorAll('.city');
+
+// Click event per city
+cities.forEach((city) =>{
+    city.addEventListener("click", (e) => {
+        // Changes default to clicked
+        c = e.target.innerHTML;
+        console.log(c);
+
+        // Fetch and display weather using the Weather API
+        fetchWeather.getWeather(c);
+
+        // fancy styling: Fade out
+        app.style.opacity = "0";
+    });
+});
+
+// gets current Date
+function dayOfTheWeek(day, month, year) {
+    const weekday = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ];
+
+    return weekday[new Date(`${day}/${month}/${year}`).getDate()];
+}
+
 let fetchWeather = {
+
     "apiKey": "2632ab542fff737012a28d74931b6af5",
+
     getWeather: function(city){
-        console.log(city)
+        
         fetch(
             "https://api.openweathermap.org/data/2.5/weather?q=" 
             + city 
@@ -11,9 +48,15 @@ let fetchWeather = {
         .then((response) => response.json())
         .then((data) => 
         this.displayWeather(data));
+
+        const date = date.location.localTime;
+
+
+        
     },
     // display weather for searched city 
     displayWeather: function(data){
+
         const { name } = data;
         const { icon, description } = data.weather[0];
         const { temp, humidity } = data.main;
@@ -29,10 +72,23 @@ let fetchWeather = {
         document.querySelector(".temp").innerText = Math.floor(temp) + "°C"
         document.querySelector(".humidity").innerText = humidity +"%"
         document.querySelector(".wind").innerText = speed + " km/h"
-        
+
+        this.backgroundImageChange(description);
+
         document.querySelector(".loading").classList.remove("loading");
 
-        // document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?'" + name + "')";
+        // if (document.querySelector(".loading").classList = 'loading') {
+        //     document.querySelector(".loading").classList.remove("loading");
+        // } else  if (document.querySelector(".loading").classList != 'loading'){
+        //     document.querySelector(".loading").classList = "";
+        // };
+    },
+    backgroundImageChange: function(description){
+        console.log(description);
+
+        app.style.opacity = "1";
+
+        document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + description + "')";
     },
     search: function() {
         this.getWeather(document.querySelector(".search-bar").value);
@@ -41,7 +97,24 @@ let fetchWeather = {
 
 // Button Search
 document.querySelector(".search button").addEventListener("click", function() {
-    fetchWeather.search();
+    if (search.value.length == 0) {
+        alert("Enter city name");
+    }
+    else {
+        // changes default city to searched value
+        c = search.value;
+
+        //  initialize fetch call
+        fetchWeather.search();
+
+        //  clears search bar
+        search.value = "";
+
+        //  fade out styling
+        app.style.opacity = "0";
+    }
+
+    e.preventDefault();
 });
 
 // "Enter" Search
@@ -51,51 +124,7 @@ document.querySelector(".search-bar").addEventListener('keyup', function(e) {
     }
 });
 
-const cities = document.querySelectorAll('.city');
 
-// Click event per city
-cities.forEach((city) =>{
-    city.addEventListener("click", (e) => {
-        // Changes default to clicked
-        c = e.target.innerHTML;
-
-        // Fetch and display weather using the Weather API
-        fetchWeather.getWeather(c);
-
-        // fancy styling: Fade out
-        app.style.opacity = '0';
-    });
-});
-
-
-const time = document.querySelector(".time");
-
-// gets current Date
-function currentDate(day, month, year) {
-    const weekday = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-    ];
-
-    return weekday[new Date(`${day}/${month}/${year}`).getDate()];
-}
-
-let timeOfDay = "day";
-
-// const code = data.current.condition.code;
-
-// if(!data.current.is_day) {
-//     timeOfDay = "night"
-// }
-
-// if (code == 1000) {
-    
-//}
 
 
 // // DOM elements
