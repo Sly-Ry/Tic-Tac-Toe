@@ -187,7 +187,9 @@ h1, h3 {
 }
 
 .loading {
-    font-size: 50px;
+    margin: 0;
+    margin-bottom: 0.2em;
+    font-size: 3em;
 }
 
 @media screen and (max-width: 800px) {
@@ -208,4 +210,8 @@ h1, h3 {
     .weather-app {
         min-height: 400em;
     }
-}
+
+    .loading {
+        font-size: 2em;
+    }
+};
