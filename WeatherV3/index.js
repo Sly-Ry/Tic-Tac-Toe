@@ -1,6 +1,17 @@
 const app = document.querySelector('.weather');
 const time = document.querySelector('.time');
 const cities = document.querySelectorAll('.city');
+const search = document.querySelector('.search');
+
+// Current Time
+var myVar = setInterval(function() {
+    myTimer();
+}, 1000);
+  
+function myTimer() {
+    var d = new Date();
+    document.querySelector(".time").innerHTML = d.toLocaleTimeString();
+}
 
 // gets date
 let date = new Date()
@@ -10,12 +21,10 @@ let month = getMonth(date.getMonth());
 let monthNum = date.getMonth() + 1;
 let year = date.getFullYear(); 
 
-console.log(year);
-
 document.querySelector('.date').innerHTML = `${day} ` + `${monthNum} `+ `${month} `  + `${year}`;
 
 function getDate(n) {
-    console.log(n);
+
     switch (n) {
         case 0:
             name = "S";
@@ -83,17 +92,6 @@ function getMonth(n) {
     return name;
 };
 
-
-// Current Time
-var myVar = setInterval(function() {
-    myTimer();
-}, 1000);
-  
-function myTimer() {
-    var d = new Date();
-    document.querySelector(".time").innerHTML = d.toLocaleTimeString();
-}
-
 // Click event per city
 cities.forEach((city) =>{
     city.addEventListener("click", (e) => {
@@ -107,22 +105,6 @@ cities.forEach((city) =>{
         app.style.opacity = "0";
     });
 });
-
-// gets current Date
-function dayOfTheWeek(day, month, year) {
-    const weekday = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-    ];
-
-    return weekday[new Date(`${day}/${month}/${year}`).getDate()];
-}
-
 
 let fetchWeather = {
 
@@ -160,29 +142,6 @@ let fetchWeather = {
         document.querySelector(".humidity").innerText = humidity +"%"
         document.querySelector(".wind").innerText = speed + " km/h"
 
-        // Searched Time
-        let unix_timestamp = data.dt;
-        console.log(unix_timestamp);
-
-        // Create a new JavaScript Date object based on the timestamp
-        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-        var date = new Date(unix_timestamp * 1000);
-        
-        // Hours part from the timestamp
-        var hours = date.getHours();
-
-        // Minutes part from the timestamp
-        var minutes = "0" + date.getMinutes();
-
-        // Seconds part from the timestamp
-        var seconds = "0" + date.getSeconds();
-
-
-        // Will display time in 10:30:23 format
-        document.querySelector(".time").innerHTML = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
-        console.log(document.querySelector(".time").innerHTML);
-
         this.backgroundImageChange(description);
 
         document.querySelector(".loading").classList.remove("loading");
@@ -206,19 +165,18 @@ let fetchWeather = {
 };
 
 // Button Search
-document.querySelector(".search button").addEventListener("click", function() {
-    if (search.value.length == 0) {
-        alert("Enter city name");
+document.querySelector(".search button").addEventListener("click", function(e) {
+
+    if (document.querySelector(".search-bar").value.length == 0) {
+        alert("Enter a location");
     }
     else {
-        // changes default city to searched value
-        c = search.value;
 
         //  initialize fetch call
         fetchWeather.search();
 
         //  clears search bar
-        search.value = "";
+        document.querySelector(".search-bar").value = "";
 
         //  fade out styling
         app.style.opacity = "0";
@@ -231,10 +189,21 @@ document.querySelector(".search button").addEventListener("click", function() {
 document.querySelector(".search-bar").addEventListener('keyup', function(e) {
     if (e.key == "Enter") {
         fetchWeather.search();
+
+        //  clears search bar
+        document.querySelector(".search-bar").value = "";
+
+        //  fade out styling
+        app.style.opacity = "0";
     }
 });
 
-
+function addCity() {
+    var ul = document.getElementById("list");
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode("Element 4"));
+    ul.appendChild(li)
+}
 
 
 // // DOM elements
